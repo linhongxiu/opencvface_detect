@@ -14,10 +14,10 @@ void detectAndDisplay(Mat frame, int i)
 	std::vector<Rect> faces;
 	Mat frame_gray;
 
-	cvtColor(frame, frame_gray, COLOR_BGR2GRAY);  //²ÊÉ«Í¼×ª»»³É»Ò¶ÈÍ¼
+	cvtColor(frame, frame_gray, COLOR_BGR2GRAY);  //å½©è‰²å›¾è½¬æ¢æˆç°åº¦å›¾
 	equalizeHist(frame_gray, frame_gray);
 
-	//-- Detect faces ¼ì²âÈËÁ³
+	//-- Detect faces æ£€æµ‹äººè„¸
 	long t0 = cv::getTickCount();
 	face_cascade.detectMultiScale(frame_gray, faces, 1.1, 2, 0 | CASCADE_SCALE_IMAGE, Size(40, 40));
 	long t1 = cv::getTickCount();
@@ -26,13 +26,13 @@ void detectAndDisplay(Mat frame, int i)
 
 	for (size_t i = 0; i < faces.size(); i++)
 	{
-		rectangle(frame, faces[i], Scalar(255, 0, 0), 2, 8, 0);   //¾ØĞÎ¿ò
+		rectangle(frame, faces[i], Scalar(255, 0, 0), 2, 8, 0);   //çŸ©å½¢æ¡†
 		Mat faceROI = frame_gray(faces[i]);
 
 	}
-	imwrite("D:\\ÈËÁ³Ê¶±ğ\\opencv_detect\\result\\result" + to_string(i)+ ".jpg", frame);
-	ofstream out("costtime.txt", ios::in | ios::app);
-	out << secs << "ms" << endl;
+	imwrite("D:\\äººè„¸è¯†åˆ«\\opencv_detect\\result\\result" + to_string(i)+ ".jpg", frame);
+	ofstream out("costtime.txt", ios::out | ios::app);
+	out << secs*1000 << "ms" << endl;
 	out.close();
 	//system("pause");
 	//imshow("Test", frame);
@@ -41,13 +41,13 @@ void detectAndDisplay(Mat frame, int i)
 
 int main(int argc, const char** argv)
 {
-	// Load the cascades µ¼Èë¼¶Áª£¨Haar·ÖÀàÆ÷£¬Êµ¼ÊÊÇÒ»¸öXMLÎÄ¼ş£©
+	// Load the cascades å¯¼å…¥çº§è”ï¼ˆHaaråˆ†ç±»å™¨ï¼Œå®é™…æ˜¯ä¸€ä¸ªXMLæ–‡ä»¶ï¼‰
 	if (!face_cascade.load("D:\\OpenCV\\opencv\\sources\\data\\haarcascades\\haarcascade_frontalface_alt2.xml")) { printf("--(!)Error loading face cascade\n"); return -1; };
 
 	for (int i = 0; i <= 10; i++)
 	{
 		Mat frame;
-		frame = imread("D:\\ÈËÁ³Ê¶±ğ\\SeetaFaceEngine-master\\SeetaFaceEngine-master\\FaceDetection\\data\\picture" + to_string(i) + ".jpg");
+		frame = imread("D:\\äººè„¸è¯†åˆ«\\SeetaFaceEngine-master\\SeetaFaceEngine-master\\FaceDetection\\data\\picture" + to_string(i) + ".jpg");
 
 		detectAndDisplay(frame, i);
 	}	
